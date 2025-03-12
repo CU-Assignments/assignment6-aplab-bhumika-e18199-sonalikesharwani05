@@ -1,0 +1,56 @@
+import java.util.Stack;
+
+class DequeUsingStacks {
+    Stack<Integer> stackFront = new Stack<>();
+    Stack<Integer> stackRear = new Stack<>();
+
+    public void enqueueFront(int data) {
+        stackFront.push(data);
+    }
+
+    public void enqueueRear(int data) {
+        stackRear.push(data);
+    }
+
+    public int dequeueFront() {
+        if (stackFront.isEmpty()) {
+            while (!stackRear.isEmpty()) {
+                stackFront.push(stackRear.pop());
+            }
+        }
+        if (stackFront.isEmpty()) {
+            throw new RuntimeException("Deque is empty");
+        }
+        return stackFront.pop();
+    }
+
+    public int dequeueRear() {
+        if (stackRear.isEmpty()) {
+            while (!stackFront.isEmpty()) {
+                stackRear.push(stackFront.pop());
+            }
+        }
+        if (stackRear.isEmpty()) {
+            throw new RuntimeException("Deque is empty");
+        }
+        return stackRear.pop();
+    }
+
+    public boolean isEmpty() {
+        return stackFront.isEmpty() && stackRear.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        DequeUsingStacks deque = new DequeUsingStacks();
+
+        deque.enqueueFront(10);
+        deque.enqueueRear(20);
+        deque.enqueueFront(5);
+        deque.enqueueRear(25);
+
+        System.out.println(deque.dequeueFront());
+        System.out.println(deque.dequeueRear());
+        System.out.println(deque.dequeueFront());
+        System.out.println(deque.dequeueRear());
+    }
+}
