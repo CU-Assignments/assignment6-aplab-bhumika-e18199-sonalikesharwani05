@@ -1,0 +1,50 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+class CircularQueue {
+    Queue<Integer> queue = new LinkedList<>();
+    int capacity;
+
+    public CircularQueue(int size) {
+        this.capacity = size;
+    }
+
+    public boolean enqueue(int val) {
+        if (queue.size() == capacity) {
+            return false;
+        }
+        return queue.add(val);
+    }
+
+    public int dequeue() {
+        if (queue.isEmpty()) {
+            throw new RuntimeException("Queue is empty");
+        }
+        return queue.remove();
+    }
+
+    public int front() {
+        if (queue.isEmpty()) {
+            throw new RuntimeException("Queue is empty");
+        }
+        return queue.peek();
+    }
+
+    public boolean isFull() {
+        return queue.size() == capacity;
+    }
+
+    public boolean isEmpty() {
+        return queue.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        CircularQueue cq = new CircularQueue(3);
+        cq.enqueue(1);
+        cq.enqueue(2);
+        cq.enqueue(3);
+        System.out.println(cq.dequeue()); // Output: 1
+        System.out.println(cq.enqueue(4)); // Output: true
+        System.out.println(cq.front());  // Output: 2
+    }
+}
